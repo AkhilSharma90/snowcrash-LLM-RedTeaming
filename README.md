@@ -49,10 +49,10 @@ Unlike traditional security tools, Snowcrash is:
 ## 🚀 Quickstart
 
 ### 1. Clone the repo
-\`\`\`bash
+'''bash
 git clone https://github.com/your-org/snowcrash.git
 cd snowcrash
-\`\`\`
+'''
 
 ### 2. Install dependencies
 \`\`\`bash
