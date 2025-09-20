@@ -7,7 +7,7 @@ from datetime import datetime
 import pandas as pd
 import streamlit as st
 
-from .common import mock_finding, title
+from tab_common import mock_finding, title
 
 
 def render(ss) -> None:

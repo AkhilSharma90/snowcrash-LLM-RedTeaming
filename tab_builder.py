@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 import streamlit as st
 
-from .common import title
+from tab_common import title
 
 
 def render(ss) -> None:
