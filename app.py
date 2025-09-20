@@ -66,6 +66,7 @@ CSS = """
 .stApp [data-testid="stHeader"],
 .stApp [data-testid="stToolbar"]{
   background:transparent!important; border:none!important;
+  pointer-events:none; height:0; min-height:0;
 }
 
 .stApp .block-container{
@@ -187,7 +188,29 @@ TABS = [
 ]
 
 # derive active from query param
-params = st.query_params
+def _get_query_params() -> dict:
+    """Return current query params with legacy/new Streamlit support."""
+    try:
+        params_proxy = st.query_params  # type: ignore[attr-defined]
+        # convert proxy to plain dict without mutating original
+        return {k: v for k, v in params_proxy.items()}
+    except Exception:
+        return st.experimental_get_query_params()
+
+
+def _set_query_params(**kwargs) -> None:
+    """Update query params regardless of Streamlit version."""
+    try:
+        for key, value in kwargs.items():
+            if isinstance(value, list):
+                st.query_params[key] = value  # type: ignore[attr-defined]
+            else:
+                st.query_params[key] = value  # type: ignore[attr-defined]
+    except Exception:
+        st.experimental_set_query_params(**kwargs)
+
+
+params = _get_query_params()
 raw_tab = params.get("tab", "home")
 if isinstance(raw_tab, list):
     raw_tab = raw_tab[0] if raw_tab else "home"
@@ -195,15 +218,13 @@ active = (raw_tab or "home").lower()
 valid_tabs = {key for _, key in TABS}
 if active not in valid_tabs:
     active = "home"
-current_tab = params.get("tab")
-if isinstance(current_tab, list):
-    current_tab = current_tab[0] if current_tab else None
-if current_tab != active:
-    st.query_params["tab"] = active
+if params.get("tab") != active:
+    _set_query_params(tab=active)
+ss.active_tab = active
 
 def nav_link(lbl, key):
     cls = "active" if key == active else ""
-    return f'<a class="{cls}" href="?tab={key}">{lbl}</a>'
+    return f'<a class="{cls}" href="?tab={key}" target="_self" rel="noopener">{lbl}</a>'
 
 navbar = (
     '<div class="sc-nav">'
