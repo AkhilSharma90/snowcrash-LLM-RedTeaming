@@ -2,8 +2,6 @@
 
 import streamlit as st
 
-from .common import title
-
 
 def render(ss) -> None:
     c1, c2 = st.columns([3, 2])
