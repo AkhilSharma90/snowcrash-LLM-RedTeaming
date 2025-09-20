@@ -1,9 +1,11 @@
 # app.py — Snowcrash LLM Red-Teaming (Full Terminal Theme + Top Navbar)
-import time
 import random
 from datetime import datetime, timedelta
+
 import pandas as pd
 import streamlit as st
+
+from tabs import TAB_RENDERERS
 
 # ------------------------------------------------
 # Page config
