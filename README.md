@@ -96,9 +96,9 @@ snowcrash/
 
 We welcome offensive security researchers, AI engineers, and policy experts to contribute.  
 1. Fork the repo  
-2. Create a branch (\`git checkout -b feature/amazing\`)  
-3. Commit changes (\`git commit -m 'Added amazing feature'\`)  
-4. Push (\`git push origin feature/amazing\`)  
+2. Create a branch (`git checkout -b feature/amazing`)  
+3. Commit changes (`git commit -m 'Added amazing feature'`)  
+4. Push (`git push origin feature/amazing`)  
 5. Open a Pull Request  
 
 ---
