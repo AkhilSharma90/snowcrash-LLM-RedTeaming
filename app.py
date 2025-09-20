@@ -179,6 +179,53 @@ CSS = """
 
 code{color:var(--accent); background:rgba(0,255,154,0.08); padding:2px 6px; border-radius:6px;}
 
+/* terminal console */
+.terminal-shell{
+  background:rgba(3,14,9,0.98);
+  border:1px solid rgba(0,255,154,0.26);
+  border-radius:16px;
+  box-shadow:0 22px 48px rgba(0,0,0,0.55);
+  overflow:hidden;
+  font-family:'IBM Plex Mono', monospace;
+}
+.terminal-header{
+  display:flex; align-items:center; gap:8px;
+  padding:10px 16px;
+  background:linear-gradient(90deg, rgba(0,255,154,0.18), rgba(0,187,255,0.12));
+  border-bottom:1px solid rgba(0,255,154,0.18);
+  letter-spacing:0.22em; text-transform:uppercase; font-size:11px;
+  color:var(--accent);
+}
+.terminal-header .dot{
+  width:10px; height:10px; border-radius:50%; display:inline-block;
+  background:rgba(0,255,154,0.38);
+  box-shadow:0 0 12px rgba(0,255,154,0.45);
+}
+.terminal-body{
+  padding:18px 20px 22px;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,154,0.08),
+    rgba(0,255,154,0.08) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+  max-height:420px; overflow:auto;
+}
+.terminal-body::-webkit-scrollbar{width:6px;}
+.terminal-body::-webkit-scrollbar-thumb{background:rgba(0,255,154,0.28); border-radius:6px;}
+.term-line{display:flex; gap:12px; font-size:13px; line-height:1.55; color:var(--text-secondary);}
+.term-line .prompt{color:rgba(0,255,154,0.85); text-shadow:0 0 8px rgba(0,255,154,0.45);}
+.term-line .ts{color:rgba(0,255,154,0.45); font-size:11px; letter-spacing:0.08em; min-width:104px;}
+.term-line.log-ok{color:var(--text);}
+.term-line.log-warn{color:#ff9a66;}
+.term-line.log-crit{color:#ff5b7a; text-shadow:0 0 10px rgba(255,91,122,0.4);}
+
+.terminal-footer{
+  padding:10px 16px 14px; border-top:1px solid rgba(0,255,154,0.16);
+  font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(0,255,154,0.6);
+}
+
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
