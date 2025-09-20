@@ -187,15 +187,19 @@ TABS = [
 ]
 
 # derive active from query param
-params = st.experimental_get_query_params()
-active = params.get("tab", ["home"])
-if isinstance(active, list):
-    active = active[0] if active else "home"
-active = (active or "home").lower()
+params = st.query_params
+raw_tab = params.get("tab", "home")
+if isinstance(raw_tab, list):
+    raw_tab = raw_tab[0] if raw_tab else "home"
+active = (raw_tab or "home").lower()
 valid_tabs = {key for _, key in TABS}
 if active not in valid_tabs:
     active = "home"
-st.experimental_set_query_params(tab=active)
+current_tab = params.get("tab")
+if isinstance(current_tab, list):
+    current_tab = current_tab[0] if current_tab else None
+if current_tab != active:
+    st.query_params["tab"] = active
 
 def nav_link(lbl, key):
     cls = "active" if key == active else ""
