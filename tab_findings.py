@@ -1,11 +1,74 @@
 """Findings tab renderer."""
 
-from datetime import datetime
+from __future__ import annotations
+
+import html
+from datetime import datetime, timedelta
 
 import pandas as pd
 import streamlit as st
 
 from tab_common import sev_badge, title
+
+
+def _terminal_summary_markup(df: pd.DataFrame) -> str:
+    now = datetime.utcnow().replace(microsecond=0)
+    lines: list[tuple[str, str]] = []
+    total = len(df)
+    lines.append(("ok", f"summary :: {total} finding(s) in view"))
+
+    severity_order = ["Critical", "High", "Medium", "Low"]
+    severity_counts = (
+        df["severity"].str.title().value_counts().reindex(severity_order, fill_value=0)
+    )
+    for sev in severity_order:
+        count = int(severity_counts.get(sev, 0))
+        level = "crit" if sev == "Critical" else "warn" if sev == "High" else "ok"
+        lines.append((level, f"sev::{sev.lower()} => {count}"))
+
+    latest = df.sort_values("timestamp", ascending=False).head(5)
+    for _, record in latest.iterrows():
+        sev = (record.get("severity") or "").lower()
+        if sev == "critical":
+            level = "crit"
+        elif sev == "high":
+            level = "warn"
+        else:
+            level = "ok"
+        ts = record.get("timestamp", "")
+        run = record.get("run_id", "")
+        cat = record.get("category", "")
+        title_txt = record.get("title", "")
+        text = (
+            f"{ts} :: {run} :: {cat} :: {title_txt}"
+        )
+        lines.append((level, text))
+
+    rendered = []
+    for idx, (level, text) in enumerate(lines):
+        cls = {
+            "crit": "log-crit",
+            "warn": "log-warn",
+        }.get(level, "log-ok")
+        ts_label = (now - timedelta(seconds=(len(lines) - idx - 1) * 11)).strftime(
+            "%H:%M:%S"
+        )
+        rendered.append(
+            "<div class='term-line {}'>".format(cls)
+            + f"<span class='ts'>{ts_label}</span>"
+            + "<span class='prompt'>λ</span>"
+            + f"<span>{html.escape(text)}</span>"
+            + "</div>"
+        )
+
+    body = "".join(rendered)
+    return (
+        "<div class='terminal-shell findings-terminal'>"
+        "<div class='terminal-header'><span class='dot'></span> snowcrash::findings-summary</div>"
+        f"<div class='terminal-body'>{body}</div>"
+        "<div class='terminal-footer'>summary // filtered backlog snapshot</div>"
+        "</div>"
+    )
 
 
 def render(ss) -> None:
@@ -32,6 +95,9 @@ def render(ss) -> None:
             fdf = fdf[fdf["status"].isin(status)]
         if owner:
             fdf = fdf[fdf["owner"].isin(owner)]
+
+        st.markdown(_terminal_summary_markup(fdf), unsafe_allow_html=True)
+        st.markdown("<div class='rule'></div>", unsafe_allow_html=True)
 
         rows = []
         for _, record in fdf.sort_values("timestamp", ascending=False).iterrows():
