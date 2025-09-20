@@ -1,7 +1,7 @@
 # 🧪 Snowcrash — Offensive LLM Red-Teaming Framework
 
 <p align="center">
-  <img src="https://res.cloudinary.com/dsqufr1x5/image/upload/v1758358647/snowcrash_litukz.jpg" alt="Snowcrash Logo" width="200"/>
+  <img src="https://res.cloudinary.com/dsqufr1x5/image/upload/v1758358647/snowcrash_litukz.jpg" alt="Snowcrash Logo" width="800"/>
 </p>
 
 **Snowcrash** is an **offensive-first LLM red-teaming platform** that automates adversarial testing of large language models, AI agents, and Model Context Protocol (MCP) tools.  
