@@ -49,20 +49,20 @@ Unlike traditional security tools, Snowcrash is:
 ## 🚀 Quickstart
 
 ### 1. Clone the repo
-'''bash
+```bash
 git clone https://github.com/your-org/snowcrash.git
 cd snowcrash
-'''
+```
 
 ### 2. Install dependencies
-\`\`\`bash
+```bash
 pip install -r requirements.txt
-\`\`\`
+```
 
 ### 3. Run the Streamlit UI
-\`\`\`bash
+```bash
 streamlit run app.py
-\`\`\`
+```
 
 ### 4. Open your browser
 Navigate to [http://localhost:8501](http://localhost:8501) to access the Snowcrash dashboard.  
@@ -70,7 +70,7 @@ Navigate to [http://localhost:8501](http://localhost:8501) to access the Snowcra
 ---
 
 ## 📂 Project Structure
-\`\`\`
+```
 snowcrash/
 │── app.py                # Streamlit UI
 │── core/                 # Core adversarial engine
@@ -78,7 +78,7 @@ snowcrash/
 │── findings/             # Evidence & reports
 │── docs/                 # Documentation & guides
 │── tests/                # Unit & integration tests
-\`\`\`
+```
 
 ---
 
