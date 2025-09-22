@@ -40,9 +40,10 @@ Unlike traditional security tools, Snowcrash is:
 
 ## 🖥️ UI Preview
 
-<p align="center">
-  <img src="https://your-screenshot-link-here.png" alt="Snowcrash UI Preview"/>
-</p>
+<video width="100%" controls muted>
+  <source src="https://res.cloudinary.com/dsqufr1x5/video/upload/v1758537520/2025-09-22_16-01-06_sw72px.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ---
 
